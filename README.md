@@ -1,4 +1,4 @@
-# Home Assistant - tipps
+# Home Assistant - tips
 ## IP Ban
 ```yaml
 http:

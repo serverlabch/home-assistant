@@ -1,0 +1,21 @@
+sensor:
+  - platform: template
+    sensors:
+      electricity_tariff:
+        friendly_name: Eniwa Tariff
+        unit_of_measurement: CHF/kWh
+        value_template: >
+          {% set tariff = { "ht": 0.3041, "lt": 0.2414 } %}
+          {% if now().weekday() in [0, 1, 2, 3, 4] %}
+            {% if 22 <= now().hour or now().hour < 7 %}
+              {{ tariff.lt }}
+            {% elif 7 <= now().hour < 12 %}
+              {{ tariff.ht }}
+            {% elif 12 <= now().hour < 17 %}
+              {{ tariff.lt }}
+            {% elif 17 <= now().hour < 22 %}
+              {{ tariff.ht }}
+            {% endif %}
+          {% else %}
+            {{ tariff.lt }}
+          {% endif %}

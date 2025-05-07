@@ -1,0 +1,7 @@
+sensor:
+  - platform: template
+    sensors:
+      distance_person1_person2:
+        friendly_name: Distance Person1 Person2
+        value_template: >
+          {{ (distance ('device_tracker.person1_iphone', 'device_tracker.person2_iphone') * 1000) | float | round(0) }}

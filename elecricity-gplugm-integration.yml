@@ -1,0 +1,54 @@
+homeassistant:
+  customize_glob:
+    sensor.gplugm_z_ei:
+      unit_of_measurement: "kWh"
+      device_class: energy
+      state_class: total_increasing
+      last_reset: 1970-01-01T00:00:00+00:00
+    sensor.gplugm_z_ei1:
+      unit_of_measurement: "kWh"
+    sensor.gplugm_z_ei2:
+      unit_of_measurement: "kWh"
+    sensor.gplugm_z_eo:
+      unit_of_measurement: "kWh"
+      device_class: energy
+      state_class: total_increasing
+      last_reset: 1970-01-01T00:00:00+00:00
+    sensor.gplugm_z_eo1:
+      unit_of_measurement: "kWh"
+    sensor.gplugm_z_eo2:
+      unit_of_measurement: "kWh" 
+    sensor.gplugm_z_i1:
+      unit_of_measurement: "A"
+    sensor.gplugm_z_i2:
+      unit_of_measurement: "A"
+    sensor.gplugm_z_i3:
+      unit_of_measurement: "A"
+    sensor.gplugm_z_u1:
+      unit_of_measurement: "V"
+    sensor.gplugm_z_u2:
+      unit_of_measurement: "V"
+    sensor.gplugm_z_u3:
+      unit_of_measurement: "V"
+    sensor.gplugm_z_pi:
+      unit_of_measurement: "kW"
+    sensor.gplugm_z_q8:
+      unit_of_measurement: "kVArh"
+      
+utility_meter:
+  energy_daily:
+    name: Energy In - Daily
+    source: sensor.gplugm_z_ei
+    cycle: daily
+  energy_weekly:
+    name: Energy In - Weekly
+    source: sensor.gplugm_z_ei
+    cycle: weekly
+  energy_monthly:
+    name: Energy In - Monthly
+    source: sensor.gplugm_z_ei
+    cycle: monthly
+  energy_yearly:
+    name: Energy In - Yearly
+    source: sensor.gplugm_z_ei
+    cycle: yearly

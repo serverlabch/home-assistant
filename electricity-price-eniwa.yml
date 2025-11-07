@@ -1,21 +1,28 @@
 sensor:
-  - platform: template
-    sensors:
-      electricity_costs:
-        friendly_name: Eniwa AG - Costs
-        unit_of_measurement: CHF/kWh
-        value_template: >
-          {% set tariff = { "ht": 0.3041 | float, "lt": 0.2414 | float } %}
-          {% if now().weekday() in [0, 1, 2, 3, 4] %}
-            {% if 22 <= now().hour or now().hour < 7 %}
-              {{ tariff.lt }}
-            {% elif 7 <= now().hour < 12 %}
-              {{ tariff.ht }}
-            {% elif 12 <= now().hour < 17 %}
-              {{ tariff.lt }}
-            {% elif 17 <= now().hour < 22 %}
-              {{ tariff.ht }}
-            {% endif %}
-          {% else %}
-            {{ tariff.lt }}
-          {% endif %} 
+  electricity_costs:
+    friendly_name: Eniwa AG - Costs
+    unit_of_measurement: CHF/kWh
+    value_template: >
+      {% set year = now().year %}
+      {% if year == 2025 %}
+        {% set tariff = { "ht": 0.3041 | float, "lt": 0.2414 | float } %}
+      {% elif year == 2026 %}
+        {% set tariff = { "ht": 0.2992 | float, "lt": 0.2387 | float } %}
+      {% else %}
+        {# fallback to latest known tariffs #}
+        {% set tariff = { "ht": 0.2992 | float, "lt": 0.2387 | float } %}
+      {% endif %}
+
+      {% if now().weekday() in [0, 1, 2, 3, 4] %}
+        {% if 22 <= now().hour or now().hour < 7 %}
+          {{ tariff.lt }}
+        {% elif 7 <= now().hour < 12 %}
+          {{ tariff.ht }}
+        {% elif 12 <= now().hour < 17 %}
+          {{ tariff.lt }}
+        {% elif 17 <= now().hour < 22 %}
+          {{ tariff.ht }}
+        {% endif %}
+      {% else %}
+        {{ tariff.lt }}
+      {% endif %}
